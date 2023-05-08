@@ -6,11 +6,15 @@ let answerIfUserChooseScissors = `You Lost! Computer choose rock.`
 let answerIfUserWins = `You Won! The computer lost.`;
 let numberOfWins = 0;
 
+const buttonPaper = document.querySelector(".paper");
+const buttonRock = document.querySelector(".rock");
+const buttonScissors = document.querySelector(".scissors");
+
 // Gets a random number from 0 - 2 (both are inclusive)
-let randomNumber = () => Math.floor(Math.random() * (2 - 0 + 1) + 0);
+let getRandomNumber = () => Math.floor(Math.random() * (2 - 0 + 1) + 0);
 
 let getComputerChoice = () => {
-    return threeAnswers[randomNumber()];
+    return threeAnswers[getRandomNumber()];
 };
 
 function displayWinner(playerSelection, computerSelection) {
@@ -25,20 +29,28 @@ function displayWinner(playerSelection, computerSelection) {
     }
 }
 
-let game = () => {
-    for(let i = 0; i < 5; i++) {
-        let answerFromUser = prompt(`Best of Five...\nPaper, Rock, or Scissors?`)
+let game = (answerFromUser) => {
         let outcomeOfGame = displayWinner(answerFromUser, getComputerChoice());
 
         if(outcomeOfGame === answerIfUserWins) {
             numberOfWins += 1;
         }
 
-        console.log(outcomeOfGame);   
-    }
+        console.log(outcomeOfGame);
 };
 
-game();
+buttonPaper.addEventListener('click', () => {
+    game("paper");
+});
+
+buttonRock.addEventListener('click', () => {
+    game("rock");
+});
+
+buttonScissors.addEventListener('click', () => {
+    game('scissors');
+});
+
 
 if (numberOfWins >= 3) {
     console.log(`Congratulations, you're a champion!!!`);
